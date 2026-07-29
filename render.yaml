@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: amani-nguba
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: APP_NAME
+        value: AMANI NGUBA
+      - key: APP_TAGLINE
+        value: La paix profonde dans la gestion fidèle
+      - key: DATABASE_URL
+        fromDatabase:
+          name: amani-nguba-db
+          property: connectionString
+
+databases:
+  - name: amani-nguba-db
+    plan: free
+    databaseName: amani_nguba
+    user: amani
+    postgresMajorVersion: 15
